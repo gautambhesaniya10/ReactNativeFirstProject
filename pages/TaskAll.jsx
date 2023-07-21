@@ -6,6 +6,7 @@ import TouchableHighlightCom from '../components/TouchableHighlightButton';
 import TouchableOpacityRadioButton from '../components/TouchableOpacityRadioButton';
 import PressableButton from '../components/PressableButton';
 import PlatformCom from '../components/PlatformCom';
+import AsynsStorageCom from '../components/AsynsStorageCom';
 
 const TaskAll = () => {
   return (
@@ -25,6 +26,7 @@ const TaskAll = () => {
       <TouchableOpacityRadioButton />
       <PressableButton />
       <PlatformCom />
+      <AsynsStorageCom />
     </ScrollView>
   );
 };

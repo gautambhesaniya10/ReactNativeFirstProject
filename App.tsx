@@ -12,12 +12,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import LoginPage from './pages/Loginpage';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import SignUp from './pages/SignUp';
 import TaskAll from './pages/TaskAll';
+import Products from './pages/Products';
 
 // const Stack = createNativeStackNavigator();
-// const Tab = createBottomTabNavigator();
-const Tab = createMaterialTopTabNavigator();
+const Tab = createBottomTabNavigator();
+// const Tab = createMaterialTopTabNavigator();
 
 function App(): JSX.Element {
   return (
@@ -51,7 +51,10 @@ function App(): JSX.Element {
             component={HomePage}
             initialParams={{formData: undefined}}
           />
+
           <Tab.Screen name="Tasks" component={TaskAll} />
+
+          <Tab.Screen name="Products" component={Products} />
         </Tab.Navigator>
       </NavigationContainer>
     </>

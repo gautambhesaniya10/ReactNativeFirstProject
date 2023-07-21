@@ -8,6 +8,7 @@ import {
   ScrollViewBase,
   StyleSheet,
   Text,
+  TextInput,
   TouchableHighlight,
   View,
 } from 'react-native';
@@ -26,6 +27,12 @@ const HomePage = props => {
 
   const GetFormData = async () => {
     await axios.get(`${api_endpoint}`)?.then(res => {
+      setApiData(res?.data);
+    });
+  };
+
+  const SearchApiData = async searchText => {
+    await axios.get(`${api_endpoint}?q=${searchText}`)?.then(res => {
       setApiData(res?.data);
     });
   };
@@ -56,7 +63,14 @@ const HomePage = props => {
     <>
       <View style={{margin: 30}}>
         <Text style={{fontSize: 26}}>This is home Screen</Text>
-        <ScrollView style={{marginBottom: 40}}>
+
+        <TextInput
+          style={style.searchIpt}
+          onChangeText={text => SearchApiData(text)}
+          placeholder="Search..."
+        />
+
+        <ScrollView style={{marginBottom: 100}}>
           {apiData?.map((item, index) => (
             <>
               <View
@@ -127,23 +141,27 @@ const HomePage = props => {
                 setUpdateModalVisible(!updateModalVisible);
               }}>
               <View style={ModelStyle.centeredView}>
-                <View style={ModelStyle.modalView}>
-                  <Text style={ModelStyle.modalText}>Update User</Text>
-                  <BasicForm
-                    isUpdate={true}
-                    pastData={updateFormData}
-                    setUpdateModalVisible={setUpdateModalVisible}
-                    GetFormData={GetFormData}
-                  />
-                  <View style={style.delBtn}>
-                    <Button
-                      onPress={() => setUpdateModalVisible(!updateModalVisible)}
-                      color="skyblue"
-                      title="Cancel"
+                <ScrollView>
+                  <View style={ModelStyle.modalView}>
+                    <Text style={ModelStyle.modalText}>Update User</Text>
+                    <BasicForm
+                      isUpdate={true}
+                      pastData={updateFormData}
+                      setUpdateModalVisible={setUpdateModalVisible}
+                      GetFormData={GetFormData}
                     />
-                    {/* <Button color="green" title="Update" /> */}
+                    <View style={style.delBtn}>
+                      <Button
+                        onPress={() =>
+                          setUpdateModalVisible(!updateModalVisible)
+                        }
+                        color="skyblue"
+                        title="Cancel"
+                      />
+                      {/* <Button color="green" title="Update" /> */}
+                    </View>
                   </View>
-                </View>
+                </ScrollView>
               </View>
             </Modal>
           </View>
@@ -164,6 +182,15 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 15,
+  },
+  searchIpt: {
+    fontSize: 15,
+    borderColor: 'black',
+    borderRadius: 50,
+    borderWidth: 1,
+    padding: 5,
+    paddingLeft: 14,
+    margin: 10,
   },
 });
 
